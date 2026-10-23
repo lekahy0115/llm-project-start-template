@@ -1,0 +1,41 @@
+# Jupyter / Colab 임시 항목
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# 인증 정보 및 비밀 설정
+.env
+.env.*
+*.pem
+*.p12
+*.pfx
+*secret*.json
+*credentials*.json
+
+# 운영체제 / 편집기 임시 파일
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# 다운로드한 원본/가공 데이터 (samples/는 제외하지 않음)
+data/raw/
+data/processed/
+data/private/
+
+# 출력 결과는 Drive에 보관하고 Git에는 포함하지 않음
+outputs/*
+!outputs/README.md
+
+# 모델/체크포인트/대용량 가중치
+*.safetensors
+*.gguf
+*.ckpt
+*.pt
+*.pth
+*.h5
+*.keras
+*.onnx
+
+# 임시 로그
+*.log
