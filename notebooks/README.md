@@ -1,12 +1,12 @@
-# Colab 노트북 보관
+# Colab 노트북
 
-모든 주 개발·실험·서비스 시연 코드는 `.ipynb`에서 시작합니다.
+`.ipynb`가 기본 개발·평가·서비스 실행 파일입니다.
 
-- `00_COLAB_CONNECTION_CHECK.ipynb`: Colab 및 공유 Google Drive 경로 확인
-- `development/`: 작업별 기능 개발 노트북
-- `evaluation/`: 결과 검증 노트북
-- `service/`: 웹 UI와 서비스 시연을 실행하는 노트북
+- `00_environment_check.ipynb`: Drive 마운트와 경로 확인. Git Push 기능은 없습니다.
+- `development/`: 구현 중인 개별 기능의 노트북 (예: `news_summary.ipynb`)
+- `evaluation/`: 평가용 노트북 (예: `model_metrics.ipynb`)
+- `service/`: 웹 UI·ngrok 연결을 실행하는 노트북 (예: `service_demo.ipynb`)
 
-새 노트북 이름 예: `development/RENAME_ME_feature.ipynb`, `service/RENAME_ME_service.ipynb`. `RENAME_ME_`는 팀원이 실제 기능명을 선택해야 한다는 표시입니다. 두 사람이 같은 `.ipynb` 파일을 동시에 편집하지 않고 기능별로 나누는 것을 권장합니다.
+새 노트북은 **Google Drive 웹 화면에서 Git 저장소의 해당 폴더에 생성하거나 이동**하고, 그 파일을 다시 열어 편집하십시오. 새 노트북이 기본 `Colab Notebooks` 폴더에 생성되면 이 저장소에 자동 등록되지 않습니다.
 
-GitHub의 브랜치에서 Colab 노트북을 열어도 자동으로 GitHub에 저장되는 것은 아닙니다. `파일 → GitHub에 사본 저장`을 이용해 대상 Repository·브랜치·경로를 확인한 후 저장합니다. 자세한 순서는 [`../docs/TEAM_COLLABORATION_WORKFLOW.md`](../docs/TEAM_COLLABORATION_WORKFLOW.md)에 있습니다.
+브랜치 전환 전에는 현재 편집 중인 노트북을 저장하고 닫은 뒤, 대상 브랜치의 파일을 다시 열어 파일 내용이 맞는지 확인하십시오.

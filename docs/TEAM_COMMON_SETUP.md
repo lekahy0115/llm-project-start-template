@@ -1,97 +1,122 @@
-# 팀원 공통 환경 설정: GitHub · Google Colab · Google Drive
+# 팀원 공통 초기 설정 — GitHub + Drive + Colab
 
-모든 팀원이 자신의 계정에서 **최초 1회** 진행하는 연결 설정과 확인 방법입니다. GitHub 조직 생성·Repository 관리자 설정은 포함하지 않습니다.
+## 준비할 것
 
-## 1. 사용할 계정 준비
+- Organization의 해당 Public Repository를 볼 수 있는 GitHub 계정
+- 본인 Google 계정과 저장 공간
+- `TEAM_ENVIRONMENT_INFO.md`에 적힌 실제 이름·경로
+- GitHub에 Push할 팀원은 Repository **Write** 권한
 
-1. GitHub 계정과 Google 계정으로 각각 로그인합니다.
-2. 팀에서 전달받은 [`TEAM_ENVIRONMENT_INFO.md`](TEAM_ENVIRONMENT_INFO.md)의 Repository 주소, 공개 범위, Google Drive 공유 폴더 이름을 확인합니다.
-3. GitHub Organization/Repository 초대가 온 경우 초대 링크를 열어 수락합니다. Private Repository라면 초대를 수락해야 접근할 수 있습니다.
-4. Repository 주소를 열어 `README.md`, `notebooks/`, `docs/`가 표시되는지 확인합니다.
+## 1. Drive에 개인 Git 저장소 위치 준비
 
-**확인 결과:** Repository 파일 목록을 볼 수 있어야 합니다. 접근 불가 메시지가 나오면 Organization 멤버십과 Repository 권한을 확인해야 합니다.
+Drive 웹사이트(`https://drive.google.com`)에서 `내 드라이브/RENAME_ME_PROJECT/` 폴더를 만듭니다. `repository/`는 Clone 명령이 생성하므로 미리 만들지 않습니다.
 
-## 2. Google Drive 공유 폴더 접근 설정
+개인별 예상 경로:
 
-1. 팀에서 전달받은 공유 폴더 링크를 열고 접근 권한이 있는지 확인합니다.
-2. [Google Drive](https://drive.google.com) → 왼쪽 `공유 문서함(Shared with me)`으로 이동합니다.
-3. 팀의 `RENAME_ME_SHARED_DRIVE_FOLDER` 폴더를 찾습니다.
-4. 폴더를 우클릭하고 `정리(Organize)` → `바로가기 추가(Add shortcut)`를 선택합니다.
-5. 목적지를 **내 드라이브(My Drive) 최상위**로 지정합니다.
-6. 바로가기 이름이 팀 안내에 적힌 `RENAME_ME_SHARED_DRIVE_FOLDER`와 **완전히 동일한지** 확인합니다. 이름이 다르면 팀 표준 이름으로 바꿉니다.
-7. `내 드라이브`에 해당 바로가기가 표시되고, 내부의 `datasets/`, `models/`, `outputs/` 등 폴더가 열리는지 확인합니다.
+```text
+/content/drive/MyDrive/RENAME_ME_PROJECT/repository/
+```
 
-**왜 바로가기가 필요한가요?** 공유 문서함에 보인다는 사실만으로 Colab의 `/content/drive/MyDrive/`에 같은 경로가 생기지는 않습니다. 바로가기를 `내 드라이브`에 만들어야 팀 공통 경로로 접근하기 쉽습니다.
+이 경로는 Git 명령의 **작업 디렉터리**이고, 팀원의 개인 Git 저장소 복제본입니다. 팀원끼리 이 폴더를 공유하지 않습니다.
 
-**주의:** 바로가기 생성과 원본 폴더 접근 권한은 별개입니다. 권한이 없으면 폴더 소유자에게 공유 권한을 요청해야 합니다.
+## 2. Drive 연결 (최초 한 번 진행 후 세션마다 재마운트 가능)
 
-## 3. Colab에서 연결 확인 노트북 열기
-
-1. [Google Colab](https://colab.research.google.com)에 로그인합니다.
-2. `파일(File)` → `노트북 열기(Open notebook)`를 선택합니다.
-3. `GitHub` 탭을 선택합니다. 처음이라면 GitHub 계정 접근 권한을 승인합니다.
-4. Organization 또는 Repository 주소를 이용해 해당 저장소를 찾습니다.
-5. `notebooks/00_COLAB_CONNECTION_CHECK.ipynb`를 선택합니다.
-6. 열리지 않으면 GitHub Repository에서 노트북 파일을 열고 `Open in Colab` 버튼이 있으면 선택하거나, Colab의 `GitHub` 탭에 해당 GitHub 노트북 URL을 입력합니다.
-7. `런타임(Runtime)` → `런타임 유형 변경(Change runtime type)`에서 Python 런타임을 선택합니다. GPU는 지금 필요하지 않으므로 CPU로 시작해도 됩니다.
-
-**확인 결과:** Google Colab 편집기에서 연결 확인용 `.ipynb`가 열려야 합니다.
-
-Private Repository는 Colab의 GitHub 연결 권한/Private 저장소 접근을 추가로 허용해야 목록에 나올 수 있습니다. 초대 수락과 GitHub 인증이 필요합니다.
-
-## 4. Google Drive 마운트 및 경로 검증
-
-노트북 첫 번째 실행 셀에서 다음 명령을 실행합니다.
+1. `https://colab.research.google.com`에서 새 노트북을 열거나, GitHub의 `notebooks/00_environment_check.ipynb`를 엽니다.
+2. 실행 코드 셀에서 다음을 실행합니다.
 
 ```python
 from google.colab import drive
 drive.mount('/content/drive')
 ```
 
-1. 표시된 Google 인증 화면에서 자신의 Google 계정을 선택합니다.
-2. Drive 접근을 허용합니다.
-3. 다음 셀에서 `DRIVE_FOLDER_NAME`의 문자열 `RENAME_ME_SHARED_DRIVE_FOLDER`를 **팀에서 전달받은 실제 폴더명**으로 변경합니다.
-4. 셀을 실행해 `폴더 존재: True`와 데이터/모델/결과 폴더의 존재 여부를 확인합니다.
+3. Google 계정으로 인증한 후 `/content/drive/MyDrive/RENAME_ME_PROJECT/`가 존재하는지 확인합니다.
 
-예상 경로:
+이 첫 노트북은 **Drive 연결을 위한 진입 화면**이며, Git 동기화용 파일을 새로 만드는 절차는 아닙니다.
 
-```text
-/content/drive/MyDrive/RENAME_ME_SHARED_DRIVE_FOLDER/datasets/raw
-/content/drive/MyDrive/RENAME_ME_SHARED_DRIVE_FOLDER/datasets/processed
-/content/drive/MyDrive/RENAME_ME_SHARED_DRIVE_FOLDER/models
-/content/drive/MyDrive/RENAME_ME_SHARED_DRIVE_FOLDER/checkpoints
-/content/drive/MyDrive/RENAME_ME_SHARED_DRIVE_FOLDER/outputs
+## 3. GitHub 저장소 전체 Clone (최초 1회)
+
+Drive 마운트가 완료된 **같은 런타임의 Linux 터미널**을 열고 다음을 실행합니다.
+
+```bash
+git clone https://github.com/RENAME_ME_ORG/RENAME_ME_REPOSITORY.git \
+  /content/drive/MyDrive/RENAME_ME_PROJECT/repository
+cd /content/drive/MyDrive/RENAME_ME_PROJECT/repository
+git status
 ```
 
-**오류 해결:** `False`라면 Drive 폴더명 오타, `내 드라이브` 바로가기 누락, 공유 권한 미설정, 잘못된 Google 계정으로 마운트한 경우를 확인합니다. Drive 공유 경로가 확인되기 전에는 데이터 파일을 임의 위치에 복사하지 않습니다.
+`On branch main` 등이 보이면 저장소로 인식한 것입니다. 이미 Clone한 이후에는 다시 Clone하지 않습니다.
 
-## 5. GitHub 브랜치에서 Colab 파일 열기와 저장 권한 확인
+## 4. 공용 대용량 폴더 접근
 
-1. GitHub Repository → 브랜치 선택 메뉴에서 현재 작업 브랜치를 확인합니다.
-2. Colab `파일 → 노트북 열기 → GitHub`에서 **작업할 브랜치의 노트북**을 선택해 엽니다. 기존 파일이 아니라 새 노트북을 시작해도 됩니다.
-3. 내용을 수정한 후 Colab에서 `파일(File)` → `GitHub에 사본 저장(Save a copy in GitHub)`을 선택합니다.
-4. 최초 1회라면 GitHub 쓰기 권한을 승인합니다.
-5. 저장 대화상자에서 **Repository, Branch, 파일 경로**를 반드시 확인합니다. `main`이 아니라 본인의 `feature/...` 또는 `fix/...` 브랜치를 선택합니다.
-6. 저장할 기존 노트북과 동일한 경로를 지정하거나, 새 노트북이면 담당 기능에 맞는 경로를 지정합니다.
-7. Commit message(예: `Add first notebook cell`)를 입력하고 저장합니다.
-8. GitHub 웹에서 해당 브랜치를 선택하고 새 Commit과 노트북 변경 사항이 보이는지 확인합니다.
+팀에서 공유받은 `RENAME_ME_SHARED_DATA` 폴더를 Drive의 `공유 문서함`에서 찾습니다. 우클릭 → `정리` → `바로가기 추가`로 `내 드라이브` 최상위에 같은 이름으로 추가합니다.
 
-**가장 중요한 구분:** Colab의 일반 `저장(Ctrl+S)`과 `GitHub에 사본 저장`은 동일한 동작이 아닙니다. GitHub에 변경을 남기려면 대상 브랜치에 별도로 저장해야 합니다. GitHub에서 연 노트북은 Colab 안에서 편집한다고 원본이 실시간으로 바뀌지 않습니다.
+정상 경로 예시:
 
-Colab GitHub 저장 대화상자에 브랜치가 없으면 GitHub에서 먼저 브랜치를 생성한 뒤 노트북을 다시 열거나 다시 시도합니다. Organization 정책 때문에 쓰기 권한 승인이 차단되면 저장소 관리자에게 확인합니다.
+```text
+/content/drive/MyDrive/RENAME_ME_SHARED_DATA/datasets/raw/v001/
+```
 
-## 6. 환경 설정 완료 기준
+공용 대용량 파일 사용·버전 규칙은 `GOOGLE_DRIVE_LARGE_FILES.md`를 따릅니다.
 
-- [ ] GitHub Repository의 노트북과 문서 열기 가능
-- [ ] 자신의 Google Drive `내 드라이브`에서 팀 공유 폴더 바로가기 확인
-- [ ] `00_COLAB_CONNECTION_CHECK.ipynb`에서 Drive 경로 확인 성공
-- [ ] 자신이 생성한 작업 브랜치를 GitHub에서 볼 수 있음
-- [ ] Colab에서 작업 브랜치에 노트북 저장 후 GitHub Commit 확인 가능
+## 5. Drive에 있는 노트북을 실제로 열기
 
-브랜치 생성, 팀원 리뷰, 병합은 [`TEAM_COLLABORATION_WORKFLOW.md`](TEAM_COLLABORATION_WORKFLOW.md)를 따릅니다.
+Drive 웹사이트에서 **`내 드라이브/RENAME_ME_PROJECT/repository/notebooks/`**의 `.ipynb` 파일을 선택해 Google Colaboratory로 엽니다. GitHub 웹 URL에서 노트북을 열면 개인 Drive의 Git 저장소 파일과 자동으로 연결되지 않습니다.
 
-## 공식 참고 자료
+새 노트북은 Git 저장소 안의 `notebooks/development/` 또는 다른 해당 폴더에 생성/이동한 뒤 엽니다. 새 노트북이 기본 `Colab Notebooks/`에 생성되었다면 Drive 웹사이트에서 저장소 폴더로 이동하고 **이동한 파일을 다시 엽니다.**
 
-- [Google Colab FAQ](https://research.google.com/colaboratory/faq.html?hl=ko)
-- [Google Colab의 GitHub 노트북 열기/저장 예시](https://github.com/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
-- [Google Drive 공유 폴더 바로가기 안내](https://support.google.com/drive/answer/2375057?hl=ko)
+파일을 수정하고 저장한 다음 Linux 터미널에서 다음을 확인합니다.
+
+```bash
+cd /content/drive/MyDrive/RENAME_ME_PROJECT/repository
+git status --short
+```
+
+수정한 노트북이 표시되지 않으면 **편집 중인 파일과 Git 저장소 파일이 서로 다른 것**일 수 있으므로 저장·경로를 확인하십시오.
+
+## 6. GitHub에 Push할 계정 인증 (개인별 1회 준비)
+
+GitHub 계정의 `Settings → Developer settings → Personal access tokens → Fine-grained tokens`에서 사용할 Repository만 선택하고 **Contents: Read and write** 권한의 토큰을 발급할 수 있습니다. Organization 정책이 있다면 해당 승인도 필요합니다.
+
+이후 Linux 터미널에서 `git push` 인증을 요청할 때 GitHub 사용자명과 토큰을 사용합니다. **토큰을 노트북·README·명령어 URL·Drive 공개 파일에 기록하지 마십시오.** 토큰은 GitHub 계정 비밀번호가 아닙니다.
+
+최초 Commit 전에 본인 Git 작성자 정보를 지정합니다.
+
+```bash
+git config --global user.name "RENAME_ME_GITHUB_DISPLAY_NAME"
+git config --global user.email "RENAME_ME_GITHUB_EMAIL"
+```
+
+GitHub에서 비공개 이메일을 사용한다면 GitHub가 제공하는 `noreply` 주소를 설정해도 됩니다. `--global` 설정은 새 런타임에서 다시 필요할 수 있습니다.
+
+## 7. 작업 시작
+
+`TEAM_GIT_WORKFLOW.md`의 순서대로 `main` 갱신 → 브랜치 생성 → `.ipynb` 작업 → Commit·Push → PR·Merge를 수행합니다.
+
+### 확인 항목
+
+- [ ] 개인 Drive의 `repository/.git/` 경로가 존재함
+- [ ] 현재 Git 브랜치가 확인됨
+- [ ] 공용 Drive 대용량 폴더를 읽을 수 있음
+- [ ] Drive에서 연 노트북 수정이 Git `status`에 나타남
+- [ ] 본인 브랜치에 Push할 GitHub 권한이 있음
+
+참고: https://research.google.com/colaboratory/faq.html · https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+
+## 처음 설정할 때의 실제 순서와 확인 기준
+
+1. 팀 공통 정보 문서에서 Organization, Repository, 개인 Drive 상위 폴더명, 공용 대용량 파일 폴더명을 확인합니다.
+2. 본인 Drive의 `RENAME_ME_PROJECT/` 폴더를 생성합니다. `repository/` 폴더는 미리 만들지 않습니다.
+3. Drive 마운트를 완료합니다. `00_environment_check.ipynb`가 GitHub에만 존재할 때는, **Clone 전의 연결용 노트북**으로 GitHub에서 열어 실행할 수 있지만 이 화면에서 편집한 내용이 Drive 저장소에 자동 반영되지는 않습니다.
+4. **최초 Clone 전** 환경 점검 노트북에서 `개인 Git 저장소: ... 존재: False`가 보이는 것은 정상입니다. 공용 폴더도 생성·바로가기 추가 전이면 `False`입니다.
+5. 마운트 후 Linux 터미널에서 Clone을 진행합니다. Clone이 성공한 뒤 `repository/.git/`과 `repository/notebooks/`가 있는지 확인합니다.
+6. 이후에는 **Drive 웹사이트의** `내 드라이브/RENAME_ME_PROJECT/repository/notebooks/00_environment_check.ipynb` 파일을 Colaboratory로 열어 검사하면 Repository 존재가 `True`여야 합니다.
+7. 저장 확인용으로 작업 브랜치에서 작은 `.ipynb` 파일을 수정하고 저장한 뒤 `git status --short`로 해당 파일 변경을 확인합니다. 테스트 수정은 본인의 작업 브랜치에서만 진행합니다.
+
+**검사 실패 시 구분:** Drive 경로가 없으면 폴더명·마운트를, Git 저장소만 없으면 Clone 완료 여부를, Git 변경 내역이 없으면 수정한 `.ipynb`의 실제 Drive 경로를 확인합니다. GitHub에 Push할 때 403 오류가 발생하면 본인 GitHub 계정의 Write 권한과 인증을 확인합니다.
+
+**GitHub 로그인과 Git Push 인증은 다릅니다.** Public Repository의 읽기·Clone은 인증 없이 가능하지만, Push에는 권한과 인증이 필요합니다. 개인 액세스 토큰을 셀에 하드코딩하거나 터미널 명령 URL에 넣지 않습니다. 일부 Colab 계정에서는 터미널 메뉴를 사용할 수 없으며 그 경우 별도 셀에서 `%cd`, `!git`로 대체할 수 있습니다. 이 방법은 계정별 UI 차이를 설명하는 대안이지, Git 전용 노트북을 새로 만드는 절차가 아닙니다.
+
+## 참고 문서
+- Google Colab FAQ: https://research.google.com/colaboratory/faq.html
+- GitHub 인증 토큰: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+- Git 클론: https://git-scm.com/docs/git-clone

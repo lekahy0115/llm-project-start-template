@@ -1,122 +1,97 @@
-# 프로젝트 폴더 및 파일 구조
+# 프로젝트 폴더 및 파일 설명
 
-## 1. 전체 구성
+## GitHub 저장소 트리
 
 ```text
-RENAME_ME_PROJECT_NAME/                  ← 프로젝트에 맞게 이름 변경
+RENAME_ME_PROJECT/                # ZIP의 최상위 이름 — 실제 프로젝트명으로 변경 가능
 ├── .github/
-│   └── README.md                       ← GitHub 관련 설정 파일 위치 안내
-├── notebooks/                           ← Colab 노트북 중심 개발
-│   ├── README.md
-│   ├── 00_COLAB_CONNECTION_CHECK.ipynb  ← Drive·런타임 연결 확인
+│   └── README.md                # GitHub 관리 파일을 향후 어디에 둘지 설명
+├── notebooks/
+│   ├── README.md                # 노트북 저장 규칙
+│   ├── 00_environment_check.ipynb # 처음 접속 시 Drive 마운트 및 경로 확인
 │   ├── development/
-│   │   └── .gitkeep
+│   │   └── README.md            # 기능 개발·실험 노트북
 │   ├── evaluation/
-│   │   └── .gitkeep
+│   │   └── README.md            # 평가 노트북
 │   └── service/
-│       └── .gitkeep
+│       └── README.md            # 서비스·ngrok 시연 노트북
 ├── data/
-│   ├── README.md
+│   ├── README.md                # GitHub 파일과 Drive 대용량 파일 구분
 │   └── samples/
-│       └── .gitkeep                    ← GitHub 공유용 작은 예제
+│       └── README.md            # 공개 가능한 소규모 예제 데이터
 ├── configs/
-│   └── README.md                       ← 기술 확정 후 설정 파일 보관
-├── assets/
-│   └── README.md                       ← 이미지·화면 자료
+│   └── README.md                # 나중에 정해질 모델·실험 설정
 ├── outputs/
-│   └── README.md                       ← 임시/로컬 출력; Git 추적 제외
+│   └── README.md                # 작고 공유 가능한 평가·시연 결과
+├── assets/
+│   └── README.md                # UI 캡처·프로젝트 다이어그램
 ├── docs/
-│   ├── TEAM_ENVIRONMENT_INFO.md         ← 팀에 공유할 설정 결과/주소
-│   ├── TEAM_COMMON_SETUP.md            ← 모든 팀원이 할 최초 연결 설정
-│   ├── TEAM_COLLABORATION_WORKFLOW.md   ← 브랜치·Colab 저장·PR·병합
-│   └── SERVICE_DEMO.md                 ← Colab 서비스 시연 흐름
-├── .gitignore                          ← 인증정보·체크포인트 등 제외 규칙
-├── README.md                           ← 프로젝트 안내 및 문서 바로가기
-└── STRUCTURE.md                        ← 지금 읽는 설명 문서
+│   ├── README.md                # 문서 안내
+│   ├── TEAM_ENVIRONMENT_INFO.md  # 관리자 설정의 결과만 기록
+│   ├── TEAM_COMMON_SETUP.md     # 모든 팀원의 초기 설정 절차
+│   ├── TEAM_GIT_WORKFLOW.md     # Git·브랜치·병합 단계
+│   ├── GOOGLE_DRIVE_LARGE_FILES.md # 대용량 Drive 사용법
+│   ├── DATA_MODEL_REGISTRY.md   # 대용량 파일 버전·경로 기록
+│   ├── NGROK_WEB_DEMO.md       # ngrok 시연 절차
+│   └── PORTFOLIO_AND_REPRODUCTION.md # 공개·재현 안내
+├── .gitignore                   # 인증정보·캐시·대형 가중치 제외
+├── README.md                    # 프로젝트 시작 방법
+└── STRUCTURE.md                 # 현재 문서
 ```
 
-`development/`, `evaluation/`, `service/` 안의 `.gitkeep`은 빈 폴더를 GitHub에도 표시하기 위한 파일이며 실행되지 않습니다.
+## 각 폴더의 목적과 예시
 
-## 2. 각 폴더의 목적과 사용 예시
-
-### `notebooks/` — Colab에서 직접 여는 주 개발 파일
-
-- `00_COLAB_CONNECTION_CHECK.ipynb`: Colab 런타임 및 공유 Google Drive 경로를 확인합니다.
-- `development/`: 기능 구현·수정·실험용 노트북을 놓습니다. 예: `RENAME_ME_document_summary.ipynb`.
-- `evaluation/`: 정확도/응답 시간 등 평가용 노트북을 놓습니다. 예: `RENAME_ME_response_evaluation.ipynb`.
-- `service/`: 시연용 웹 UI·추론 요청 처리를 **노트북에서 실행**할 때 사용합니다. 예: `RENAME_ME_service_demo.ipynb`.
-
-이름에 `RENAME_ME_`가 붙은 예시 파일은 **아직 생성되지 않았으며**, 실제 담당 기능에 맞게 새로 만듭니다. 각 파일을 여러 사람이 동시에 수정하면 `.ipynb` 병합 충돌이 어려우므로 담당 노트북을 분리합니다.
-
-### `data/samples/` — GitHub로 공유하는 소규모 예제
-
-예: 개인정보가 제거된 `example_input.json`이나 공개 허용된 5행짜리 `example.csv`. 여기 넣은 파일은 기본적으로 Git 추적 대상입니다. 민감정보·원본 대량 데이터는 이 폴더에 두지 않습니다.
-
-### `configs/` — 설정을 코드에서 분리할 때
-
-예: 기술 선정 후 추가할 `RENAME_ME_model_settings.json` 같은 **비밀정보 없는** 설정 파일. 특정 LLM·RAG·프레임워크는 미리 지정하지 않습니다. API 키, 토큰 및 비밀번호는 설정 파일에 기록하지 않습니다.
-
-### `assets/` — 설명 및 서비스 자료
-
-예: 서비스 화면 설명 그림(`ui_flow.png`), 로고 또는 발표용 공개 이미지. 모델 가중치나 데이터셋 보관 장소가 아닙니다.
-
-### `outputs/` — 런타임 생성물의 임시 위치
-
-예: 실험 중 만들어진 임시 텍스트·로그·그림. `outputs/` 아래 생성물은 `.gitignore`로 Git 추적에서 제외합니다. 여러 사람이 공유하거나 오래 보관할 결과는 Google Drive의 `outputs/`에 저장합니다.
-
-### `docs/` — 팀원이 직접 읽을 운영·사용 문서
-
-- `TEAM_ENVIRONMENT_INFO.md`: 실제 Repository/Drive 주소와 팀의 합의된 운영 정책을 확인하는 결과 문서입니다. 미확정 항목은 `RENAME_ME_...`로 표시했습니다.
-- `TEAM_COMMON_SETUP.md`: 각 팀원이 자신의 GitHub·Google 계정으로 설정하는 절차입니다.
-- `TEAM_COLLABORATION_WORKFLOW.md`: 작업 브랜치 생성부터 Colab 저장, PR 검토·병합·다음 작업까지의 순서입니다.
-- `SERVICE_DEMO.md`: Colab에서 서비스 시연을 실행할 때 필요한 구성과 제한 사항입니다.
-
-### `.github/` — GitHub 저장소 구성 관련 위치
-
-현재는 용도 안내만 들어 있습니다. GitHub Issues, Projects, PR, 브랜치 보호 설정은 GitHub 웹 화면에서 관리할 수 있으므로 별도의 자동화·이슈·PR 템플릿은 만들지 않았습니다.
-
-## 3. 이름 변경이 가능한 항목과 고정 권장 항목
-
-| 항목 | 변경 기준 | 예시 |
+| 경로 | 목적 | 나중에 추가할 수 있는 파일 예시(미생성) |
 |---|---|---|
-| ZIP 최상위 `RENAME_ME_PROJECT_NAME` | 실제 프로젝트명으로 변경 | `news-verification-demo` |
-| GitHub Organization·Repository명 | 소유자가 정하는 실제 계정/프로젝트명 | `YOUR_ORG/YOUR_REPO` |
-| Google Drive 공유 루트 `RENAME_ME_SHARED_DRIVE_FOLDER` | 관리자와 팀원이 같은 이름 사용 | `news-verification-data` |
-| `RENAME_ME_...ipynb` | 담당 기능에 맞게 파일명 선택 | `document_summary.ipynb` |
-| `RENAME_ME_...json` | 사용하는 설정 내용에 맞게 파일명 선택 | `model_settings.json` |
-| `README.md`, `STRUCTURE.md`, `docs/*.md` | 문서 링크의 안정성을 위해 가급적 유지 | 변경 시 연결된 링크도 수정 |
-| `notebooks/`, `data/`, `configs/`, `assets/`, `outputs/`, `docs/` | 공통 경로이므로 가급적 유지 | 변경 시 문서·Colab 경로도 수정 |
+| `.github/` | GitHub 운영 관련 문서·설정 | 추후 필요 시 협업 규칙 파일 |
+| `notebooks/development/` | 기능별 `.ipynb` 개발 | `RENAME_ME_FEATURE.ipynb` → `news_summary.ipynb` |
+| `notebooks/evaluation/` | 결과·성능 검증 | `summary_quality.ipynb` |
+| `notebooks/service/` | 웹 UI와 ngrok 시연 실행 | `service_demo.ipynb` |
+| `data/samples/` | Git으로 관리할 **작은 공개 예제** | `example_inputs.csv` |
+| `configs/` | 실험 설정을 별도 파일로 분리할 때 사용 | `experiment_v1.yaml` |
+| `outputs/` | GitHub에 기록할 작은 표·정리 결과 | `metrics_summary.csv` |
+| `assets/` | README에 사용할 시각 자료 | `service_screenshot.png` |
+| `docs/` | 팀 협업·재현·운영 설명서 | `DATA_MODEL_REGISTRY.md` |
 
-`RENAME_ME_...`는 변수명 표기용이며 실제 값이 아닙니다. 예시를 자신의 실제 프로젝트 정보로 바꾸기 전에는 해당 경로가 작동하지 않습니다.
+예시 파일명은 구현을 강제하지 않습니다. 프로젝트에서 사용할 모델·RAG·파인튜닝·웹 UI 방식은 사전에 확정하지 않습니다.
 
-## 4. Google Drive에서 따로 만드는 저장 구조
+## Drive는 두 종류의 공간
 
-다음은 **GitHub ZIP에 포함된 폴더가 아니라**, 소유자가 Google Drive에 만들고 팀원에게 공유하는 폴더입니다.
+**팀원별 Git 저장소** (각자의 Drive에 독립적으로 존재):
 
 ```text
-My Drive/
-└── RENAME_ME_SHARED_DRIVE_FOLDER/         ← 실제 공유 폴더명
-    ├── datasets/
-    │   ├── raw/                         ← 원본 데이터
-    │   └── processed/                   ← 전처리 결과
-    ├── models/                          ← 모델 가중치
-    ├── checkpoints/                     ← 중간 학습 상태
-    └── outputs/                         ← 공유/보존할 결과
+/content/drive/MyDrive/RENAME_ME_PROJECT/repository/
+  ├── .git/
+  ├── notebooks/
+  ├── data/
+  └── ...
 ```
 
-Colab에서는 팀원 각자의 Google Drive를 `/content/drive`에 마운트합니다. 공유 폴더는 각자의 `내 드라이브` 최상위에 **같은 이름의 바로가기**를 만들어 접근하도록 맞춥니다.
+**공용 대용량 파일** (소유자 Drive 원본 하나를 공유, 다른 팀원은 바로가기):
 
-## 5. Colab 기반 개발부터 시연까지
+```text
+/content/drive/MyDrive/RENAME_ME_SHARED_DATA/
+  ├── datasets/raw/v001/
+  ├── datasets/processed/v001/
+  ├── models/v001/
+  ├── checkpoints/v001/
+  └── outputs/v001/
+```
 
-1. 팀원은 자신의 **작업 브랜치**에서 해당 `.ipynb`를 Colab으로 엽니다.
-2. Colab 런타임에서 Google Drive를 연결하고 필요한 데이터·모델을 읽습니다.
-3. `notebooks/development/` 등에서 기능을 구현합니다. 검증할 코드는 `evaluation/`의 별도 노트북에 둘 수 있습니다.
-4. 노트북은 **GitHub 작업 브랜치에 명시적으로 저장**하고 PR을 만듭니다. Colab의 일반 저장만으로 GitHub에 Commit되는 것은 아닙니다.
-5. 팀원이 PR을 검토하고 `main`에 병합합니다.
-6. 최종 시연 시 `notebooks/service/`에서 서비스 노트북을 열고 사용자 입력 → 모델 추론 → 결과 표시 흐름을 실행합니다. 웹 UI와 외부 접근 터널은 실제 기술을 정한 뒤 노트북에서 구성합니다.
+`RENAME_ME_PROJECT`, `RENAME_ME_SHARED_DATA`는 각자가 합의한 실제 이름으로 **일관되게 바꾸어야 합니다.** `repository`는 한 저장소를 가리키는 예시 폴더명입니다.
 
-Colab 런타임은 영구 서버가 아닙니다. 시연 서비스는 런타임이 종료되면 중단될 수 있습니다.
+GitHub Commit의 버전과 Google Drive 대용량 파일의 버전은 별개이므로 `docs/DATA_MODEL_REGISTRY.md`에 연결 관계를 남깁니다.
 
-## 6. `.py` 서비스로 확장할 수 있나요?
+## 파일별 역할
 
-가능합니다. 기능이 커지면 그때 `src/` 또는 `app/` 폴더를 추가해 노트북의 데이터 처리·추론·서버 로직을 `.py` 파일로 옮기면 됩니다. 현재는 이 구조가 불필요하므로 만들지 않았습니다. 기존 GitHub 브랜치·PR·Drive 데이터 관리 방식은 계속 활용할 수 있습니다.
+- `.gitignore`: 인증정보·임시 파일·대형 모델 가중치가 Git에 올라가지 않도록 합니다. `data/samples/`의 공개 예제 파일은 무시하지 않습니다.
+- `00_environment_check.ipynb`: Drive 연결과 **기대 경로 존재 여부만 검사**합니다. Git 동기화나 LLM 기능을 구현하지 않습니다.
+- 각 `README.md`: 해당 위치에 어떤 파일을 놓는지 설명합니다.
+- `TEAM_ENVIRONMENT_INFO.md`: Organization 이름 등 관리자가 확정한 **설정 결과**를 전달합니다. 관리자용 클릭 절차는 포함하지 않습니다.
+- `TEAM_COMMON_SETUP.md`: 팀원들이 로그인·Clone·개인/공용 Drive 경로를 준비하는 방법입니다.
+- `TEAM_GIT_WORKFLOW.md`: 브랜치를 다룰 때 사용하는 정확한 디렉터리와 Git 명령을 설명합니다.
+- `GOOGLE_DRIVE_LARGE_FILES.md`, `DATA_MODEL_REGISTRY.md`: 대용량 파일의 저장·공유·버전 규칙을 설명합니다.
+- `NGROK_WEB_DEMO.md`: 선택한 UI 서버를 ngrok에 연결하는 단계입니다.
+- `PORTFOLIO_AND_REPRODUCTION.md`: Public GitHub만으로 이해할 수 있도록 결과·출처·기여도를 정리합니다.
+
+별도 `.py` 코드·Python 패키지·Git 동기화 노트북·자동 생성 도구는 기본 구성에 넣지 않았습니다.

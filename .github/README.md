@@ -1,7 +1,5 @@
 # GitHub 관련 폴더
 
-GitHub 전용 설정 파일을 두는 위치입니다. 현재는 설명 문서만 있습니다.
+GitHub의 Repository 운영 관련 설정 파일을 둘 공간입니다. Issues·Projects·브랜치 보호는 GitHub 웹사이트의 저장소 설정에서 관리하므로 여기에서 별도 자동화 파일이 필요하지 않습니다.
 
-브랜치 보호, Issues, Pull Request 허용 방식, GitHub Projects는 저장소와 Organization의 웹 설정에서 관리합니다. 해당 설정이 이 폴더에 파일로 자동 기록되는 것은 아닙니다.
-
-향후 팀이 필요하다고 결정하면 이 위치에 별도의 워크플로·Issue 또는 PR 서식을 추가할 수 있지만, 현재 협업에는 필수가 아닙니다.
+팀원 작업 방식은 `../docs/TEAM_GIT_WORKFLOW.md`, 설정 결과는 `../docs/TEAM_ENVIRONMENT_INFO.md`를 참조합니다.

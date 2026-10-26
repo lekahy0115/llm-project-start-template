@@ -1,5 +1,5 @@
-# 로컬 출력 결과
+# GitHub용 소형 결과
 
-Colab 실행 중 생성되는 임시 로그, 텍스트, 소규모 결과를 임시로 모아 두는 위치입니다. 이 폴더의 `README.md`를 제외한 결과물은 `.gitignore` 규칙에 따라 기본적으로 추적하지 않습니다.
+PR 검토와 포트폴리오에 필요한 작은 평가 표, 요약 통계, 공개 가능한 텍스트 결과를 둡니다. 예: `metrics_summary.csv`.
 
-팀원이 공유하거나 보존해야 하는 결과물은 **Google Drive 공유 폴더의 `outputs/`**에 저장합니다. Colab 런타임 `/content/`에서 생성한 파일은 세션 종료 시 사라질 수 있습니다.
+대용량 예측 결과·체크포인트·원본 로그는 Drive의 `RENAME_ME_SHARED_DATA/outputs/`에 보관하고, 버전 정보를 `../docs/DATA_MODEL_REGISTRY.md`에 기록합니다.
